@@ -1,0 +1,79 @@
+=========================================================================
+PROJET BIG DATA & NLP : PRÉPARATION DE CORPUS CORD-19 AVEC DASK
+=========================================================================
+Auteurs : PANTANELLA Lucas, AZRI Asma, EL QODSI Souleimane
+Date    : Décembre 2025
+
+Ce projet démontre la création d'un corpus d'apprentissage pour LLM à partir 
+du dataset CORD-19 (40 Go de JSON) en utilisant le calcul distribué avec Dask.
+
+PRÉREQUIS SYSTÈME
+-----------------
+- Python 3.10 ou supérieur (3.12 recommandé)
+- Anaconda ou Miniforge installé
+- RAM recommandée : 8 Go minimum (le code est optimisé pour ne pas saturer la RAM)
+- Espace disque : Prévoir l'espace pour le dataset CORD-19 + ~5 Go pour le résultat.
+
+1. INSTALLATION DE L'ENVIRONNEMENT
+----------------------------------
+Il est fortement recommandé d'utiliser un environnement virtuel Conda dédié 
+pour éviter les conflits de versions.
+
+Ouvrez un terminal et exécutez les commandes suivantes :
+
+# 1. Créer l'environnement (si ce n'est pas déjà fait) (renseigner bonne version de Python si ≠3.12)
+conda create -n dsid_bigdata python=3.12 
+
+# 2. Activer l'environnement
+conda activate dsid_bigdata
+
+# 3. Installer les dépendances nécessaires
+# Nous utilisons 'dask[complete]' pour le dashboard et 'pyarrow' pour l'écriture Parquet.
+pip install "dask[complete]" pandas notebook pyarrow fastparquet
+
+2. CONFIGURATION DES DONNÉES
+----------------------------
+Ce dossier ne contient pas les données brutes (trop volumineuses).
+
+1. Téléchargez le dataset depuis le lien indiqué dans le README.md.
+2. Décompressez l'archive dans un dossier sur votre machine (ex: `/Users/Moi/Data/pdf_json`).
+3. Ouvrez le fichier `demo_dask.py` avec un éditeur de texte.
+4. Modifiez la variable `INPUT_FOLDER` (ligne ~14) avec VOTRE chemin absolu :
+
+   Exemple :
+   INPUT_FOLDER = "/Users/[VOTRE_USERNAME]/Documents/Data/pdf_json/*.json"
+
+   (IMPORTANT : Gardez bien le "/*.json" à la fin).
+
+3. EXÉCUTION DU PROJET
+----------------------
+Le projet se déroule en deux temps : le traitement lourd (script) et l'analyse (notebook).
+
+ÉTAPE A : Lancer le traitement distribué (ETL)
+Cette étape nettoie les données et génère le fichier résultat "resultats_nettoyage.parquet".
+
+1. Dans le terminal (toujours dans l'environnement dsid_bigdata) :
+   python demo_dask.py
+
+2. Pendant l'exécution, ouvrez le lien affiché (http://127.0.0.1:8787/status) 
+   dans votre navigateur pour voir le Dashboard Dask en temps réel.
+
+3. Attendez le message de fin dans le terminal.
+
+ÉTAPE B : Analyser les résultats
+Une fois le fichier .parquet généré, vous pouvez lancer le Notebook de présentation.
+
+1. Lancez Jupyter en exécutant la commande (terminal) :
+   jupyter notebook
+
+2. Ouvrez le fichier `demo_dsidbd.ipynb`.
+3. Exécutez les cellules pour voir l'analyse du benchmark et l'aperçu des données nettoyées.
+
+4. STRUCTURE DU DOSSIER
+-----------------------
+.
+├── demo_dask.py                
+├── demo_dsidbd.ipynb       
+├── dashboard_screenshot.png        
+├── INSTALL.txt
+└── resultats_nettoyage.parquet # (Généré après exécution de l'étape A)
