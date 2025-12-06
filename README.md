@@ -8,6 +8,18 @@
 
 > **Projet Big Data** : Comment peut-on créer un corpus d’apprentissage exploitable par des LLM en traitant et préparant à grande échelle des données textuelles brutes ?
 
+## 💾 Données
+
+Le dataset utilisé est une version modifiée du CORD-19 (>20 Go). Pour reproduire ce projet, vous devez télécharger les données séparément.
+
+👉 **[TÉLÉCHARGER LE DATASET ICI (Kaggle)](https://www.kaggle.com/datasets/souleimaneelqodsi/cord19-edited)**
+
+**Instruction :**
+1. Téléchargez le dataset via le lien ci-dessus.
+2. Décompressez-le sur votre machine.
+3. Notez le chemin du dossier contenant les fichiers `.json`.
+4. Configurez ce chemin dans le script `demo_dask.py` (voir INSTALL.txt).
+
 ## 📋 À propos du projet
 
 Ce projet a été réalisé dans le cadre du module **Big Data M1 MIAGE**. Il démontre l'efficacité de l'architecture distribuée **Dask** pour traiter le dataset **CORD-19** (COVID-19 Open Research Dataset).
